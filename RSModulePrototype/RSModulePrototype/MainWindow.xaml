@@ -5,8 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RSModulePrototype"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="MainWindow" Height="700" Width="500" MinHeight="50" MinWidth="180"  WindowStyle="None" AllowsTransparency="True" materialDesign:ShadowAssist.Darken="True" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Bottom"
+        ResizeMode="CanResizeWithGrip">
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30"/>
+    </WindowChrome.WindowChrome>
+    
     <Grid>
+        <!--창 관리자-->
+        <Grid Height="30" VerticalAlignment="Top" Background="Gray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+
+            <Border Padding="5">
+            <Image Grid.Column="0" Name="TItleImage" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="30" Source="images\noname.ico"/>
+            </Border>
+            
+            <Label Grid.Column="1" Name="WindowTitleLabel" Content="RSModule" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="13"/>
+
+            <Grid Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Name="WindowMinimizeBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon Kind="WindowMinimize"/>
+                </Button>
+
+                <Button Grid.Column="1" Name="WindowMaximizeBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon Kind="WindowMaximize"/>
+                </Button>
+
+                <Button Grid.Column="2" Name="WindowCloseBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <materialDesign:PackIcon Kind="WindowClose"/>
+                </Button>
+                
+            </Grid>
+
+        </Grid>
+
+        <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="1" Background="Gray"/>
+            </Grid>
+
+            <Grid Grid.Column="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Background="Gray"/>
+            </Grid>
+
+        </Grid>
         
+        <!--하단 표시라인-->
+        <Grid Height="20" VerticalAlignment="Bottom"  Background="Gray">
+        </Grid>
     </Grid>
 </Window>
