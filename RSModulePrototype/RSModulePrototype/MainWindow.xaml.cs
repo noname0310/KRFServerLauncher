@@ -23,9 +23,6 @@ namespace RSModulePrototype
         public MainWindow()
         {
             InitializeComponent();
-            WindowCloseBtn.Click += WindowCloseBtn_Click;
-            WindowMaximizeBtn.Click += WindowMaximizeBtn_Click;
-            WindowMinimizeBtn.Click += WindowMinimizeBtn_Click;
         }
 
         private void WindowCloseBtn_Click(object sender, RoutedEventArgs e)

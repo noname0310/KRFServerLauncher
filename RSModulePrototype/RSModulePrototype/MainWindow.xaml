@@ -7,16 +7,23 @@
         mc:Ignorable="d"
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="700" Width="500" MinHeight="50" MinWidth="180"  WindowStyle="None" AllowsTransparency="True" materialDesign:ShadowAssist.Darken="True" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Bottom"
+        xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
+        Title="MainWindow" Height="700" Width="500" MinHeight="50" MinWidth="180"  WindowStyle="None" AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip">
-    
+
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30"/>
     </WindowChrome.WindowChrome>
-    
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
         <!--창 관리자-->
-        <Grid Height="30" VerticalAlignment="Top" Background="Gray">
+        <Grid Grid.Row="0" VerticalAlignment="Top" Background="Gray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="*" />
@@ -24,10 +31,10 @@
             </Grid.ColumnDefinitions>
 
             <Border Padding="5">
-            <Image Grid.Column="0" Name="TItleImage" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="30" Source="images\noname.ico"/>
+                <Image Grid.Column="0" Name="TItleImage" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="30" Source="images\noname.ico"/>
             </Border>
-            
-            <Label Grid.Column="1" Name="WindowTitleLabel" Content="RSModule" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="13"/>
+
+            <Label Grid.Column="1" Name="WindowTitleLabel" Content="RSModule" Foreground="White" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="13"/>
 
             <Grid Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
@@ -35,55 +42,107 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                
-                <Button Grid.Column="0" Name="WindowMinimizeBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+
+                <Button Grid.Column="0" Click="WindowMinimizeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
                     <materialDesign:PackIcon Kind="WindowMinimize"/>
                 </Button>
 
-                <Button Grid.Column="1" Name="WindowMaximizeBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Grid.Column="1" Click="WindowMaximizeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
                     <materialDesign:PackIcon Kind="WindowMaximize"/>
                 </Button>
 
-                <Button Grid.Column="2" Name="WindowCloseBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Grid.Column="2" Click="WindowCloseBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
                     <materialDesign:PackIcon Kind="WindowClose"/>
                 </Button>
-                
+
             </Grid>
 
         </Grid>
 
-        <Grid>
-            
+        <!--내용물-->
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1" />
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                </Grid.RowDefinitions>
-                
-                <Grid Grid.Row="1" Background="Gray"/>
+            <Grid Grid.Column="0" Background="Gray"/>
+
+            <!--내용물-->
+            <Grid Grid.Column="1">
+                <dockablz:Layout>
+                    <dragablz:TabablzControl BorderThickness="0" Background="#FFFAFAFA">
+                        <dragablz:TabablzControl.InterTabController>
+                            <dragablz:InterTabController/>
+                        </dragablz:TabablzControl.InterTabController>
+                    
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBox Text="CONSOLE" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                            </TabItem.Header>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="2"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border BorderBrush="Gray" Padding="5" Grid.Row="1">
+                                    <Border BorderBrush="Gray" BorderThickness="2" Padding="5">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+
+                                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                                <TextBlock FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Waiting..."/>
+                                            </ScrollViewer>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Column="0" FontSize="12">></TextBlock>
+                                                <TextBox Grid.Column="1" FontSize="12"></TextBox>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                            </TabItem.Header>
+                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </TabItem>
+                        
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBox Text="PLAYERS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                            </TabItem.Header>
+                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </TabItem>
+
+                        <TabItem>
+                            <TabItem.Header>
+                                <TextBox Text="COMMANDS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                            </TabItem.Header>
+                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </TabItem>
+                    
+                    </dragablz:TabablzControl>
+                </dockablz:Layout>
             </Grid>
 
-            <Grid Grid.Column="2" >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="20" />
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="1" Background="Gray"/>
-            </Grid>
-
+            <Grid Grid.Column="2" Background="Gray"/>
         </Grid>
-        
+
         <!--하단 표시라인-->
-        <Grid Height="20" VerticalAlignment="Bottom"  Background="Gray">
+        <Grid Grid.Row="2" Background="Gray">
         </Grid>
     </Grid>
 </Window>
