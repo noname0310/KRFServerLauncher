@@ -117,7 +117,28 @@
                             <TabItem.Header>
                                 <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
                             </TabItem.Header>
-                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" MinWidth="500">
+                                <Border Padding="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <StackPanel Grid.Row="1">
+                                            <Border Padding="5" BorderThickness="2" BorderBrush="Gray">
+                                                <Grid Height="100">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                    </Grid>
+                                                </Grid>
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </ScrollViewer>
                         </TabItem>
                         
                         <TabItem>
