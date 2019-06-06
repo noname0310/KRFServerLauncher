@@ -1,352 +1,326 @@
-﻿<Window x:Class="RSModulePrototype.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RSModulePrototype"
-        mc:Ignorable="d"
-        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
-        Title="MainWindow" Height="700" Width="500" MinHeight="50" MinWidth="180"  WindowStyle="None" AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip">
-
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30"/>
-    </WindowChrome.WindowChrome>
-
+﻿<Controls:MetroWindow
+    x:Class="RSModulePrototype.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:RSModulePrototype"
+    mc:Ignorable="d"
+    
+    xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:dockablz="http://dragablz.net/winfx/xaml/dockablz"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    BorderThickness="1"
+    
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+    
+    Title="RSShield" Height="700" Width="1100" MinHeight="50" MinWidth="180">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-        </Grid.RowDefinitions>
+        <dockablz:Layout>
+            <dragablz:TabablzControl BorderThickness="0">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController/>
+                </dragablz:TabablzControl.InterTabController>
 
-        <!--창 관리자-->
-        <Grid Grid.Row="0" VerticalAlignment="Top" Background="Gray">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="150" />
-            </Grid.ColumnDefinitions>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBox Text="CONSOLE" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                    </TabItem.Header>
 
-            <Border Padding="5">
-                <Image Grid.Column="0" Name="TItleImage" HorizontalAlignment="Left"  VerticalAlignment="Top" Height="30" Source="images\noname.ico"/>
-            </Border>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-            <Label Grid.Column="1" Name="WindowTitleLabel" Content="RSModule" Foreground="White" HorizontalAlignment="Left"  VerticalAlignment="Center" FontSize="13"/>
+                        <Border BorderBrush="Gray" Padding="5" Grid.Row="1">
+                            <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Padding="0">
+                                <Border Padding="5">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="25"/>
+                                        </Grid.RowDefinitions>
 
-            <Grid Grid.Column="2" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Top">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                            <TextBlock FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Waiting..."/>
+                                        </ScrollViewer>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" FontSize="12">></TextBlock>
+                                            <TextBox Grid.Column="1" FontSize="12"></TextBox>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </GroupBox>
+                        </Border>
+                    </Grid>
+                </TabItem>
 
-                <Button Grid.Column="0" Click="WindowMinimizeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <materialDesign:PackIcon Kind="WindowMinimize"/>
-                </Button>
-
-                <Button Grid.Column="1" Click="WindowMaximizeBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <materialDesign:PackIcon Kind="WindowMaximize"/>
-                </Button>
-
-                <Button Grid.Column="2" Click="WindowCloseBtn_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}">
-                    <materialDesign:PackIcon Kind="WindowClose"/>
-                </Button>
-
-            </Grid>
-
-        </Grid>
-
-        <!--내용물-->
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="1" />
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="0" Background="Gray"/>
-
-            <!--내용물-->
-            <Grid Grid.Column="1">
-                <dockablz:Layout>
-                    <dragablz:TabablzControl BorderThickness="0" Background="#FFFAFAFA">
-                        <dragablz:TabablzControl.InterTabController>
-                            <dragablz:InterTabController/>
-                        </dragablz:TabablzControl.InterTabController>
-                    
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                    </TabItem.Header>
+                    <dragablz:TabablzControl BorderThickness="0" BorderBrush="#FF00AAA0">
                         <TabItem>
                             <TabItem.Header>
-                                <TextBox Text="CONSOLE" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                                <TextBox Text="INSTALL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
                             </TabItem.Header>
-
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="2"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-
-                                <Border BorderBrush="Gray" Padding="5" Grid.Row="1">
-                                    <Border BorderBrush="Gray" BorderThickness="2" Padding="5">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="25"/>
-                                            </Grid.RowDefinitions>
-
-                                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                                <TextBlock FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Waiting..."/>
-                                            </ScrollViewer>
-                                            <Grid Grid.Row="1">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <TextBlock Grid.Column="0" FontSize="12">></TextBlock>
-                                                <TextBox Grid.Column="1" FontSize="12"></TextBox>
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
-                                </Border>
-                            </Grid>
+                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </TabItem>
 
                         <TabItem>
                             <TabItem.Header>
-                                <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                                <TextBox Text="GENERAL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
                             </TabItem.Header>
-                            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                <Border Padding="5">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="2"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        
-                                        <StackPanel Grid.Row="1">
-                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
-                                                <Grid Height="200">
-                                                    <StackPanel>
-                                                        <Grid Height="5"/>
+                            <Border Padding="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="2"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                                                        <Grid Height="25">
+                                    <GroupBox Header="Essential" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Row="1" Padding="5">
+                                        <Border Padding="15">
+                                            <Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="ServerID" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Height="10"/>
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="20"/>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="ServerIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+
+                                                        <TextBlock Grid.Column="3" Text="ServerPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+                                                </StackPanel>
+
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="5*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid Grid.Row="1">
+                                                        <Grid>
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
                                                                 <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="ServerID" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="2*"/>
-                                                                <ColumnDefinition Width="20"/>
-                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="1"/>
                                                                 <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="ServerIP" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-
-                                                            <TextBlock Grid.Column="4" Text="ServerPort" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="20"/>
-                                                        <Grid Height="1">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="50"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="50"/>
                                                             </Grid.ColumnDefinitions>
 
                                                             <Grid Grid.Column="1" Background="Gray"/>
                                                         </Grid>
-                                                        <Grid Height="20"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="HostName" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="2*"/>
-                                                                <ColumnDefinition Width="20"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="ServerSeed" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-
-                                                            <TextBlock Grid.Column="4" Text="WorldSize" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="MaxPlayers" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-                                                    </StackPanel>
+                                                    </Grid>
                                                 </Grid>
+
+                                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="HostName" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Height="10"/>
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="20"/>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="ServerSeed" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+
+                                                        <TextBlock Grid.Column="3" Text="WorldSize" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Height="10"/>
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="MaxPlayers" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                        </Border>
+                                    </GroupBox>
+
+                                    <Grid Grid.Row="3">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <GroupBox Header="Additional" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="0" Padding="5">
+                                            <Border Padding="15">
+                                                <StackPanel VerticalAlignment="Center">
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="Description" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Height="10"/>
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="ServerURL" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                    </Grid>
+
+                                                    <Grid Height="10"/>
+
+                                                    <Grid Height="25">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="70"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="60"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" Text="HeaderImg" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        <Image Grid.Column="2" Height="30" Source="https://i.imgur.com/sQ3F2hR.jpg"/>
+                                                    </Grid>
+                                                </StackPanel>
                                             </Border>
+                                        </GroupBox>
 
-                                            <Grid Height="10"/>
-                                            
-                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
-                                                <Grid Height="200">
-                                                    <StackPanel>
-                                                        <Grid Height="5"/>
+                                        <GroupBox Header="RCON" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="2" Padding="5">
+                                            <Border Padding="15">
+                                                <StackPanel VerticalAlignment="Center">
+                                                <Grid Height="25">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="70"/>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="20"/>
+                                                        <ColumnDefinition Width="70"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Column="0" Text="RCONIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
 
-                                                            <TextBlock Grid.Column="1" Text="Description" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="ServerURL" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="HeaderImg" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-                                                        <Image Source="https://i.imgur.com/sQ3F2hR.jpg"></Image>
-                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="3" Text="RCONPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
                                                 </Grid>
-                                            </Border>
 
-                                            <Grid Height="10"/>
+                                                <Grid Height="10"/>
 
-                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
-                                                <Grid Height="70">
-                                                    <StackPanel>
-                                                        <Grid Height="5"/>
+                                                <Grid Height="25">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="70"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="40"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="2*"/>
-                                                                <ColumnDefinition Width="20"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="RCONIP" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-
-                                                            <TextBlock Grid.Column="4" Text="RCONPort" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        </Grid>
-
-                                                        <Grid Height="10"/>
-
-                                                        <Grid Height="25">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="5"/>
-                                                                <ColumnDefinition Width="70"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="40"/>
-                                                                <ColumnDefinition Width="5"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <TextBlock Grid.Column="1" Text="RCONPASS" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                            <PasswordBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></PasswordBox>
-                                                            <ToggleButton Grid.Column="3" Background="#FF000000" HorizontalAlignment="Right"></ToggleButton>
-                                                        </Grid>
-                                                    </StackPanel>
+                                                    <TextBlock Grid.Column="0" Text="RCONPASS" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                    <PasswordBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Rcon Password"></PasswordBox>
+                                                    <ToggleButton Grid.Column="2" Background="#FF000000" HorizontalAlignment="Right"></ToggleButton>
                                                 </Grid>
+                                                </StackPanel>
                                             </Border>
-                                        </StackPanel>
+                                        </GroupBox>
                                     </Grid>
-                                </Border>
-                            </ScrollViewer>
-                        </TabItem>
-                        
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBox Text="PLAYERS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                            </TabItem.Header>
-                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                                    <GroupBox Header="Custom Command Line" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Row="5" Padding="5">
+                                        <Border Padding="15">
+                                            <Grid>
+                                                
+                                            </Grid>
+                                        </Border>
+                                    </GroupBox>
+                                </Grid>
+                            </Border>
                         </TabItem>
 
                         <TabItem>
                             <TabItem.Header>
-                                <TextBox Text="COMMANDS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                                <TextBox Text="OPTIONAL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
                             </TabItem.Header>
                             <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </TabItem>
-                    
+
                     </dragablz:TabablzControl>
-                </dockablz:Layout>
-            </Grid>
+                </TabItem>
 
-            <Grid Grid.Column="2" Background="Gray"/>
-        </Grid>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBox Text="PLAYERS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                    </TabItem.Header>
+                    <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </TabItem>
 
-        <!--하단 표시라인-->
-        <Grid Grid.Row="2" Background="Gray">
-        </Grid>
+                <TabItem>
+                    <TabItem.Header>
+                        <TextBox Text="COMMANDS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
+                    </TabItem.Header>
+                    <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </TabItem>
+
+            </dragablz:TabablzControl>
+        </dockablz:Layout>
     </Grid>
-</Window>
+</Controls:MetroWindow>
