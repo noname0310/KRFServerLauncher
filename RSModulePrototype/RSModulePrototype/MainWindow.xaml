@@ -117,7 +117,7 @@
                             <TabItem.Header>
                                 <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
                             </TabItem.Header>
-                            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" MinWidth="500">
+                            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                                 <Border Padding="5">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -126,13 +126,196 @@
                                         </Grid.RowDefinitions>
                                         
                                         <StackPanel Grid.Row="1">
-                                            <Border Padding="5" BorderThickness="2" BorderBrush="Gray">
-                                                <Grid Height="100">
-                                                    <Grid>
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="*"/>
-                                                        </Grid.RowDefinitions>
-                                                    </Grid>
+                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
+                                                <Grid Height="200">
+                                                    <StackPanel>
+                                                        <Grid Height="5"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="ServerID" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="ServerIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+
+                                                            <TextBlock Grid.Column="4" Text="ServerPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="20"/>
+                                                        <Grid Height="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="50"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="50"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Grid Grid.Column="1" Background="Gray"/>
+                                                        </Grid>
+                                                        <Grid Height="20"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="HostName" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="ServerSeed" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+
+                                                            <TextBlock Grid.Column="4" Text="WorldSize" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="MaxPlayers" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+
+                                            <Grid Height="10"/>
+                                            
+                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
+                                                <Grid Height="200">
+                                                    <StackPanel>
+                                                        <Grid Height="5"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="Description" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="ServerURL" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="HeaderImg" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+                                                        <Image Source="https://i.imgur.com/sQ3F2hR.jpg"></Image>
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Border>
+
+                                            <Grid Height="10"/>
+
+                                            <Border Padding="15" BorderThickness="2" BorderBrush="Gray">
+                                                <Grid Height="70">
+                                                    <StackPanel>
+                                                        <Grid Height="5"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="RCONIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+
+                                                            <TextBlock Grid.Column="4" Text="RCONPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="5" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="5"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="40"/>
+                                                                <ColumnDefinition Width="5"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="1" Text="RCONPASS" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <PasswordBox Grid.Column="2" Background="#0C000000" VerticalAlignment="Center"></PasswordBox>
+                                                            <ToggleButton Grid.Column="3" Background="#FF000000" HorizontalAlignment="Right"></ToggleButton>
+                                                        </Grid>
+                                                    </StackPanel>
                                                 </Grid>
                                             </Border>
                                         </StackPanel>
