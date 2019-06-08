@@ -21,306 +21,385 @@
     
     Title="RSShield" Height="700" Width="1100" MinHeight="50" MinWidth="180">
     <Grid>
-        <dockablz:Layout>
-            <dragablz:TabablzControl BorderThickness="0">
-                <dragablz:TabablzControl.InterTabController>
-                    <dragablz:InterTabController/>
-                </dragablz:TabablzControl.InterTabController>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <dockablz:Layout>
+                <dragablz:TabablzControl BorderThickness="0">
+                    <dragablz:TabablzControl.InterTabController>
+                        <dragablz:InterTabController/>
+                    </dragablz:TabablzControl.InterTabController>
 
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBox Text="CONSOLE" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                    </TabItem.Header>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="CONSOLE" Width="80" TextAlignment="Center" Foreground="White"/>
+                        </TabItem.Header>
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="2"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <Border BorderBrush="Gray" Padding="5" Grid.Row="1">
-                            <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Padding="0">
-                                <Border Padding="5">
+                            <Border Padding="5" Grid.Row="1">
+                                <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Padding="0">
+                                    <Border Padding="5">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="25"/>
+                                            </Grid.RowDefinitions>
+
+                                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                                <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
+                                            </ScrollViewer>
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0" >
+                                                    <Grid Height="5"/>
+                                                    <TextBlock FontSize="12">></TextBlock>
+                                                </StackPanel>
+                                                <TextBox Grid.Column="1" FontSize="12"></TextBox>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+                                </GroupBox>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="SETTINGS"  Width="80" TextAlignment="Center" Foreground="White"/>
+                        </TabItem.Header>
+                        <dragablz:TabablzControl BorderThickness="0" BorderBrush="#FF00AAA0">
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="INSTALL"  Width="80" TextAlignment="Center" Foreground="White"/>
+                                </TabItem.Header>
+
+                                <Border Padding="20">
                                     <Grid>
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="2"/>
                                             <RowDefinition Height="*"/>
-                                            <RowDefinition Height="25"/>
                                         </Grid.RowDefinitions>
 
-                                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                            <TextBlock FontSize="12" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Top" Text="Waiting..."/>
-                                        </ScrollViewer>
                                         <Grid Grid.Row="1">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="10"/>
                                                 <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="2*"/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBlock Grid.Column="0" FontSize="12">></TextBlock>
-                                            <TextBox Grid.Column="1" FontSize="12"></TextBox>
+                                            
+                                            <GroupBox Header="Update / Install Options" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="0" Padding="5">
+                                                <Border Padding="20">
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="20"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+
+                                                        <Button Grid.Row="0" Height="AUTO" Background="#FFFF5050">
+                                                            <Border Padding="10">
+                                                                <Grid>
+                                                                    <Image Source="images/RustIcon.png"/>
+                                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="White">Install Rust Server</TextBlock>
+                                                                </Grid>
+                                                            </Border>
+                                                        </Button>
+
+                                                        <Button Grid.Row="2" Height="AUTO" Background="#FFF0F0F0">
+                                                            <Border Padding="40">
+                                                                <Grid>
+                                                                    <Image Source="images/UmodIcon.png"/>
+                                                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Foreground="Black">Install Umod</TextBlock>
+                                                                </Grid>
+                                                            </Border>
+                                                        </Button>
+                                                    </Grid>
+                                                </Border>
+                                            </GroupBox>
+
+                                            <GroupBox Header="SteamCmd / Umod Download Stat Console" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="2" Padding="5">
+                                                <Border Padding="20">
+                                                    <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                                                        <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
+                                                    </ScrollViewer>
+                                                </Border>
+                                            </GroupBox>
                                         </Grid>
                                     </Grid>
                                 </Border>
-                            </GroupBox>
-                        </Border>
-                    </Grid>
-                </TabItem>
+                            </TabItem>
 
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBox Text="SETTINGS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                    </TabItem.Header>
-                    <dragablz:TabablzControl BorderThickness="0" BorderBrush="#FF00AAA0">
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBox Text="INSTALL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                            </TabItem.Header>
-                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="GENERAL"  Width="80" TextAlignment="Center" Foreground="White"/>
+                                </TabItem.Header>
+                                <Border Padding="20">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
 
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBox Text="GENERAL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                            </TabItem.Header>
-                            <Border Padding="10">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="2"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="10"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="10"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
+                                        <GroupBox Header="Essential" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Row="1" Padding="5">
+                                            <Border Padding="15">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="80"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                    <GroupBox Header="Essential" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Row="1" Padding="5">
-                                        <Border Padding="15">
-                                            <Grid>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                    <ColumnDefinition Width="80"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-
-                                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" Text="ServerID" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
-
-                                                    <Grid Height="10"/>
-
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="2*"/>
-                                                            <ColumnDefinition Width="20"/>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" Text="ServerIP" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-
-                                                        <TextBlock Grid.Column="3" Text="ServerPort" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
-                                                </StackPanel>
-
-                                                <Grid Grid.Column="1">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="5*"/>
-                                                        <RowDefinition Height="*"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Grid Grid.Row="1">
-                                                        <Grid>
+                                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                        <Grid Height="25">
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="*"/>
-                                                                <ColumnDefinition Width="1"/>
+                                                                <ColumnDefinition Width="70"/>
                                                                 <ColumnDefinition Width="*"/>
                                                             </Grid.ColumnDefinitions>
 
-                                                            <Grid Grid.Column="1" Background="Gray"/>
+                                                            <TextBlock Grid.Column="0" Text="ServerID" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="RSShield_server"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0" Text="ServerIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="0.0.0.0"></TextBox>
+
+                                                            <TextBlock Grid.Column="3" Text="ServerPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="28015"></TextBox>
+                                                        </Grid>
+                                                    </StackPanel>
+
+                                                    <Grid Grid.Column="1">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="5*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                    <ColumnDefinition Width="1"/>
+                                                                    <ColumnDefinition Width="*"/>
+                                                                </Grid.ColumnDefinitions>
+
+                                                                <Grid Grid.Column="1" Background="Gray"/>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
+
+                                                    <StackPanel Grid.Column="2" VerticalAlignment="Center">
+
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0" Text="HostName" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="ServerName"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0" Text="ServerSeed" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="1234567"></TextBox>
+
+                                                            <TextBlock Grid.Column="3" Text="WorldSize" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="4000"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0" Text="MaxPlayers" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="100"></TextBox>
+                                                        </Grid>
+                                                    </StackPanel>
                                                 </Grid>
+                                            </Border>
+                                        </GroupBox>
 
-                                                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                        <Grid Grid.Row="3">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
 
+                                            <GroupBox Header="Additional" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="0" Padding="5">
+                                                <Border Padding="15">
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0" Text="Description" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Server created with RSShield"></TextBox>
+                                                        </Grid>
 
-                                                        <TextBlock Grid.Column="0" Text="HostName" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
+                                                        <Grid Height="10"/>
 
-                                                    <Grid Height="10"/>
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="2*"/>
-                                                            <ColumnDefinition Width="20"/>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                                                            <TextBlock Grid.Column="0" Text="ServerURL" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="https://XXX"></TextBox>
+                                                        </Grid>
 
-                                                        <TextBlock Grid.Column="0" Text="ServerSeed" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
+                                                        <Grid Height="10"/>
 
-                                                        <TextBlock Grid.Column="3" Text="WorldSize" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="60"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                    <Grid Height="10"/>
+                                                            <TextBlock Grid.Column="0" Text="HeaderImg" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="https://XXX/XXX.jpg"></TextBox>
+                                                            <Image Grid.Column="2" Height="30" Source="https://i.imgur.com/sQ3F2hR.jpg"/>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </GroupBox>
 
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                                            <GroupBox Header="RCON" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="2" Padding="5">
+                                                <Border Padding="15">
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="20"/>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
 
-                                                        <TextBlock Grid.Column="0" Text="MaxPlayers" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Grid>
+                                                            <TextBlock Grid.Column="0" Text="RCONIP" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="0.0.0.0"></TextBox>
+
+                                                            <TextBlock Grid.Column="3" Text="RCONPort" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="28016"></TextBox>
+                                                        </Grid>
+
+                                                        <Grid Height="10"/>
+
+                                                        <Grid Height="25">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="70"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="40"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <TextBlock Grid.Column="0" Text="RCONPASS" FontWeight="Bold" VerticalAlignment="Center"/>
+                                                            <PasswordBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="1234567"></PasswordBox>
+                                                            <ToggleButton Grid.Column="2" Background="#FF000000" HorizontalAlignment="Right"></ToggleButton>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                </Border>
+                                            </GroupBox>
                                         </Grid>
-                                        </Border>
-                                    </GroupBox>
 
-                                    <Grid Grid.Row="3">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="10"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Row="5">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="2*"/>
+                                                <ColumnDefinition Width="20"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                        <GroupBox Header="Additional" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="0" Padding="5">
-                                            <Border Padding="15">
-                                                <StackPanel VerticalAlignment="Center">
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
+                                            <GroupBox Header="Custom Command Line" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="0" Padding="5">
+                                                <Border Padding="15">
+                                                    <TextBox Grid.Row="0" Background="#0C000000" FontSize="12" TextWrapping="Wrap" VerticalContentAlignment="Top"></TextBox>
+                                                </Border>
+                                            </GroupBox>
 
-                                                        <TextBlock Grid.Column="0" Text="Description" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
-
-                                                    <Grid Height="10"/>
-
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" Text="ServerURL" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                    </Grid>
-
-                                                    <Grid Height="10"/>
-
-                                                    <Grid Height="25">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="70"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="60"/>
-                                                        </Grid.ColumnDefinitions>
-
-                                                        <TextBlock Grid.Column="0" Text="HeaderImg" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                        <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                        <Image Grid.Column="2" Height="30" Source="https://i.imgur.com/sQ3F2hR.jpg"/>
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Border>
-                                        </GroupBox>
-
-                                        <GroupBox Header="RCON" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="2" Padding="5">
-                                            <Border Padding="15">
-                                                <StackPanel VerticalAlignment="Center">
-                                                <Grid Height="25">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="70"/>
-                                                        <ColumnDefinition Width="2*"/>
-                                                        <ColumnDefinition Width="20"/>
-                                                        <ColumnDefinition Width="70"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Grid.Column="0" Text="RCONIP" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                    <TextBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-
-                                                    <TextBlock Grid.Column="3" Text="RCONPort" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                    <TextBox Grid.Column="4" Background="#0C000000" VerticalAlignment="Center"></TextBox>
-                                                </Grid>
-
-                                                <Grid Height="10"/>
-
-                                                <Grid Height="25">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="70"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="40"/>
-                                                    </Grid.ColumnDefinitions>
-
-                                                    <TextBlock Grid.Column="0" Text="RCONPASS" FontWeight="Bold" VerticalAlignment="Center"/>
-                                                    <PasswordBox Grid.Column="1" Background="#0C000000" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Rcon Password"></PasswordBox>
-                                                    <ToggleButton Grid.Column="2" Background="#FF000000" HorizontalAlignment="Right"></ToggleButton>
-                                                </Grid>
-                                                </StackPanel>
-                                            </Border>
-                                        </GroupBox>
+                                            <GroupBox Header="Save" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Column="2" Padding="5">
+                                                <Border Padding="15">
+                                                    <StackPanel VerticalAlignment="Center">
+                                                        <Button Background="#FFFF3232" Content="UndoChanges" FontSize="12"/>
+                                                        <Grid Height="10"/>
+                                                        <Button Background="#FF32C832" Content="SaveSettings" FontSize="12"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </GroupBox>
+                                        </Grid>
                                     </Grid>
+                                </Border>
+                            </TabItem>
 
-                                    <GroupBox Header="Custom Command Line" Style="{DynamicResource MaterialDesignCardGroupBox}" Grid.Row="5" Padding="5">
-                                        <Border Padding="15">
-                                            <Grid>
-                                                
-                                            </Grid>
-                                        </Border>
-                                    </GroupBox>
-                                </Grid>
-                            </Border>
-                        </TabItem>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="OPTIONAL"  Width="80" TextAlignment="Center" Foreground="White"/>
+                                </TabItem.Header>
+                                <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </TabItem>
 
-                        <TabItem>
-                            <TabItem.Header>
-                                <TextBox Text="OPTIONAL" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                            </TabItem.Header>
-                            <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </TabItem>
+                        </dragablz:TabablzControl>
+                    </TabItem>
 
-                    </dragablz:TabablzControl>
-                </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="PLAYERS" Width="80" TextAlignment="Center" Foreground="White"/>
+                        </TabItem.Header>
+                        <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </TabItem>
 
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBox Text="PLAYERS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                    </TabItem.Header>
-                    <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="COMMANDS" Width="80" TextAlignment="Center" Foreground="White"/>
+                        </TabItem.Header>
+                        <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </TabItem>
 
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBox Text="COMMANDS" Width="80" HorizontalContentAlignment="Center" Foreground="White" BorderBrush="{x:Null}"/>
-                    </TabItem.Header>
-                    <TextBlock Text="N/A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </TabItem>
-
-            </dragablz:TabablzControl>
-        </dockablz:Layout>
+                </dragablz:TabablzControl>
+            </dockablz:Layout>
+        </Grid>
+        <Grid Grid.Row="1" Background="#FF009688"></Grid>
     </Grid>
 </Controls:MetroWindow>

@@ -21,9 +21,19 @@ namespace RSModulePrototype
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        NotifyManager notifyManager;
+
         public MainWindow()
         {
             InitializeComponent();
+            notifyManager = new NotifyManager();
+
+            Unloaded += OnUnload;
+        }
+
+        private void OnUnload(object sender, RoutedEventArgs e)
+        {
+            notifyManager.OnUnloaded();
         }
     }
 }
