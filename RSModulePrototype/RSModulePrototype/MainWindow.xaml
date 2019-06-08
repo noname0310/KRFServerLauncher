@@ -19,7 +19,8 @@
     Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
     
-    Title="RSShield" Height="700" Width="1100" MinHeight="50" MinWidth="180">
+    Title="RSShield" Height="700" Width="1100" MinHeight="50" MinWidth="180" Icon="images/noname.ico">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -37,41 +38,7 @@
                         <TabItem.Header>
                             <TextBlock Text="CONSOLE" Width="80" TextAlignment="Center" Foreground="White"/>
                         </TabItem.Header>
-
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-
-                            <Border Padding="5" Grid.Row="1">
-                                <GroupBox Style="{DynamicResource MaterialDesignCardGroupBox}" Padding="0">
-                                    <Border Padding="5">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="25"/>
-                                            </Grid.RowDefinitions>
-
-                                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                                <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
-                                            </ScrollViewer>
-                                            <Grid Grid.Row="1">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Grid.Column="0" >
-                                                    <Grid Height="5"/>
-                                                    <TextBlock FontSize="12">></TextBlock>
-                                                </StackPanel>
-                                                <TextBox Grid.Column="1" FontSize="12"></TextBox>
-                                            </Grid>
-                                        </Grid>
-                                    </Border>
-                                </GroupBox>
-                            </Border>
-                        </Grid>
+                        <local:Console/>
                     </TabItem>
 
                     <TabItem>
