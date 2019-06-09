@@ -10,11 +10,11 @@ using ToastNotifications.Position;
 
 namespace RSModulePrototype
 {
-    public class NotifyManager : INotifyPropertyChanged
+    public class NotifyViewModel : INotifyPropertyChanged
     {
         private readonly Notifier _notifier;
 
-        public NotifyManager()
+        public NotifyViewModel()
         {
             _notifier = new Notifier(cfg =>
             {

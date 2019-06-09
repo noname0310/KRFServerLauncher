@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
 namespace RSModulePrototype
 {
     /// <summary>
-    /// MainWindow.xaml에 대한 상호 작용 논리
+    /// Install.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class Install : UserControl
     {
-        NotifyViewModel notifyManager;
-
-        public MainWindow()
+        public Install()
         {
             InitializeComponent();
-            notifyManager = new NotifyViewModel();
-
-            Unloaded += OnUnload;
-        }
-
-        private void OnUnload(object sender, RoutedEventArgs e)
-        {
-            notifyManager.OnUnloaded();
         }
     }
 }
