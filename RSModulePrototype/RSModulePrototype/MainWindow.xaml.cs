@@ -21,7 +21,7 @@ namespace RSModulePrototype
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        NotifyViewModel notifyManager;
+        public static NotifyViewModel notifyManager;
 
         public MainWindow()
         {

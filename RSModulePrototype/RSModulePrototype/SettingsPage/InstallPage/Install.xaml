@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:RSModulePrototype"
              mc:Ignorable="d" 
-             
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -13,7 +12,9 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              
              d:DesignHeight="600" d:DesignWidth="1000">
-
+    <UserControl.DataContext>
+        <local:InstallPageViewModel/>
+    </UserControl.DataContext>
     <Border Padding="20">
         <Grid>
             <Grid.RowDefinitions>
@@ -37,7 +38,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <Button Grid.Row="0" Height="AUTO" Background="#FFFF5050">
+                            <Button Grid.Row="0" Height="AUTO" Background="#FFFF5050" Command="{Binding SInstallCommand}">
                                 <Border Padding="10">
                                     <Grid>
                                         <Image Source="/RSModulePrototype;component/images/RustIcon.png"/>
@@ -67,7 +68,7 @@
                             </Grid.RowDefinitions>
                             
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
-                                <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
+                                <TextBlock FontSize="12" TextWrapping="Wrap" Text="{Binding _InstallConsole}"/>
                             </ScrollViewer>
                             
                             <ProgressBar Grid.Row="1" Value="0" Height="10"/>

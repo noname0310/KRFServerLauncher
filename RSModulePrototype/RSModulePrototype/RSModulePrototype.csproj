@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SettingsPage\InstallPage\InstallPageViewModel.cs" />
     <Compile Include="SettingsPage\GeneralPage\General.xaml.cs">
       <DependentUpon>General.xaml</DependentUpon>
     </Compile>
@@ -158,6 +159,11 @@
     <Resource Include="images\RustIcon.png" />
     <Resource Include="images\UmodIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RSShield_Model\RSShield_Model.csproj">
+      <Project>{4ace23e8-4b21-486a-a237-aee86e06e5a6}</Project>
+      <Name>RSShield_Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
