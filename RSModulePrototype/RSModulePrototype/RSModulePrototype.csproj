@@ -92,6 +92,7 @@
     <Compile Include="SettingsPage\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModelControls.cs" />
     <Page Include="ConsolePage\Console.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

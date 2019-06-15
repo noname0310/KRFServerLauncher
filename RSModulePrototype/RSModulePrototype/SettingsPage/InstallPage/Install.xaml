@@ -67,7 +67,7 @@
                                 <RowDefinition Height="25"/>
                             </Grid.RowDefinitions>
                             
-                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" >
                                 <TextBlock FontSize="12" TextWrapping="Wrap" Text="{Binding _InstallConsole}"/>
                             </ScrollViewer>
                             

@@ -11,6 +11,7 @@ namespace RSModulePrototype
 {
     public class InstallPageViewModel : INotifyPropertyChanged
     {
+        #region ViewCTRLS
         private ICommand ServerInstall_Command;
         private StringBuilder InstallConsole;
 
@@ -59,56 +60,39 @@ namespace RSModulePrototype
             InstallConsole.AppendLine(text);
             OnPropertyUpdate("_InstallConsole");
         }
-
-        private void ServerInstall_Command_Excute()
-        {
-            MainWindow.notifyManager.ShowInformation("test");
-            _InstallConsole_AppendLine("test");
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyUpdate(string propertyname)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
-    }
+        #endregion
 
-    public class Command : ICommand
-    {   
-        //private readonly Action<object> _execute;
-        private readonly Action _execute;
-
-        //private readonly Func<object, bool> _canExecute;
-        private readonly Func<bool> _canExecute;//instead of prev line 
-
-        //public Command(Action<object> execute) 
-        public Command(Action execute)//instead of prev line
-          : this(execute, null)
-        { }
-
-        //public Command(Action<object> execute,
-        public Command(Action execute,//instead of prev line 
-        Func<bool> canExecute)//added instead of next line 
-                              //Func<object, bool> canExecute)
+        private void ServerInstall_Command_Excute()
         {
-            _execute = execute;
-            _canExecute = canExecute;
+            InstallProcess installProcess = new InstallProcess();
+            installProcess.OnConsoleNotifyOut += InstallProcess_OnConsoleNotifyOut;
+            installProcess.OnConsoleOut += InstallProcess_OnConsoleOut;
+            installProcess.StartProcess();
+            installProcess.RustServerUpdate();
         }
 
-        public void Execute(object parameter)
+        private void InstallProcess_OnConsoleNotifyOut(InstallConsoleNotify consoleNotify, string msg)
         {
-            //_execute(parameter);
-            _execute();//added instead of prev line 
+            switch (consoleNotify)
+            {
+                case InstallConsoleNotify.ConsoleStart:
+                    MainWindow.notifyManager.ShowInformation("서버 업데이트를 시작합니다");
+                    break;
+                default:
+                    break;
+            }
         }
-        public bool CanExecute(object parameter)
+
+        private void InstallProcess_OnConsoleOut(string msg)
         {
-            return (_canExecute == null)
-            //|| _canExecute(parameter);
-            || _canExecute();//added instead of prev line 
+            _InstallConsole_AppendLine(msg);
         }
-        public event EventHandler CanExecuteChanged = delegate { };
-        public void RaiseCanExecuteChanged()
-        { CanExecuteChanged(this, new EventArgs()); }
     }
 }

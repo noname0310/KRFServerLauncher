@@ -4,127 +4,142 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace RSShield_Model.ConsoleProcess
 {
     public class ConsoleProcess
     {
-        Process ServerProcess;
+        public delegate void ConsoleOutput(string msg);
+        public event ConsoleOutput OnConsoleOut;
+        public event ConsoleOutput OnConsoleErrorOut;
+        
+        public event EventHandler OnConsoleExit;
 
-        private void initServerupdate()
+        private Process Console;
+        protected string WorkingDirectory = "";
+        
+        public ConsoleProcess() { }
+
+        public ConsoleProcess(string Directory)
         {
-            PrintOnRichText("서버 업데이트중 입니다");
-            updateProgressbar.Value = 0;
-            updateProgressbar.Maximum = 100;
-
-            CheckForIllegalCrossThreadCalls = false; //에러방지
-            ServerProcess = new Process(); //변수에 Process 값 대입
-            ServerProcess.StartInfo.FileName = "cmd.exe";
-            //ServerProcess.StartInfo.WorkingDirectory = GetCutLink(SettingFilejsonObject["Link"].ToString(), 4);//cmd실행경로 수정
-            ServerProcess.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-            ServerProcess.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden; //검은창 안뜨게
-            ServerProcess.EnableRaisingEvents = true; //이벤트가 발생되도록
-            ServerProcess.StartInfo.UseShellExecute = false;
-            ServerProcess.StartInfo.RedirectStandardOutput = true; //서버 출력 메세지를 받아올지
-            ServerProcess.StartInfo.RedirectStandardInput = true; //명령어를 입력할수 있도록 할지
-            ServerProcess.StartInfo.CreateNoWindow = true; //창이 안뜨게
-            ServerProcess.StartInfo.RedirectStandardError = true; //에러 출력 메세지를 받아올지
-
-            ServerProcess.Exited += new EventHandler(ServerExit); //서버가 종료되었을때
-            ServerProcess.OutputDataReceived += new DataReceivedEventHandler(ServerOut); //서버에서 출력메세지가 생겼을때
-            ServerProcess.ErrorDataReceived += new DataReceivedEventHandler(ServerOut); //서버에서 오류메세지가 생겼을때
-
-            ServerProcess.Start(); //서버 시작
-            ServerProcess.BeginErrorReadLine(); //에러 메세지 가져오기 시작
-            ServerProcess.BeginOutputReadLine(); //서버 출력 메세지 가져오기 시작
-            
-            ServerProcess.StandardInput.Write(@"cd steam
-                                                    steamcmd.exe +@ShutdownOnFailedCommand 1
-                                                    @NoPromptForPassword 1
-                                                    login anonymous 
-                                                    force_install_dir "+ GetCutLink(SettingFilejsonObject["Link"].ToString(), 3) + @"
-                                                    app_update 258550 validate 
-                                                    quit
-                                                    cd ..
-                                                    exit" + Environment.NewLine);
+            WorkingDirectory = Directory;
         }
 
-        private void ServerExit(object sender, EventArgs e)
+        private void InitProcess()
         {
-            ServerProcess.Close();
-            ServerProcess.Dispose();
-            PrintOnRichText("ServerUpdate-업데이트 프로세스가 종료되었습니다.");
+            Console = new Process(); //변수에 Process 값 대입
+            Console.StartInfo.FileName = "cmd.exe";
+
+            if (WorkingDirectory != "")
+                Console.StartInfo.WorkingDirectory = WorkingDirectory;
+            else
+            Console.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+            Console.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden; //검은창 안뜨게
+            Console.EnableRaisingEvents = true; //이벤트가 발생되도록
+            Console.StartInfo.UseShellExecute = false;
+            Console.StartInfo.RedirectStandardInput = true; //명령어를 입력할수 있도록 할지
+            Console.StartInfo.CreateNoWindow = true; //창이 안뜨게
+            Console.StartInfo.RedirectStandardOutput = true; //서버 출력 메세지를 받아올지
+            Console.StartInfo.RedirectStandardError = true; //에러 출력 메세지를 받아올지
+
+            Console.Exited += new EventHandler(ConsoleExit); //서버가 종료되었을때
+            Console.OutputDataReceived += new DataReceivedEventHandler(ConsoleOut); //서버에서 출력메세지가 생겼을때
+            Console.ErrorDataReceived += new DataReceivedEventHandler(ConsoleErrorOut); //서버에서 오류메세지가 생겼을때
         }
 
-        private void ServerOut(object sender, DataReceivedEventArgs e)
-        {   
-            try
-            {
-                consoleRichTextbox.AppendText("\n" + e.Data);
-
-                if (e.Data.Substring(0, 41) == " Update state (0x5) validating, progress:")
-                {
-                    //PrintOnRichText(e.Data.Substring(42, 2));
-                    if(e.Data.Substring(43, 1) == ".")
-                    {
-                        updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(42, 1));
-                    }
-                    else
-                    {
-                        if (e.Data.Substring(44, 1) == ".")
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(42, 2));
-                        }
-                        else
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(42, 3));
-                        }
-                    }
-                }
-
-                if (e.Data.Substring(0, 43) == " Update state (0x61) downloading, progress:")
-                {
-                    //PrintOnRichText(e.Data.Substring(42, 2));
-                    if (e.Data.Substring(45, 1) == ".")
-                    {
-                        updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(44, 1));
-                    }
-                    else
-                    {
-                        if (e.Data.Substring(46, 1) == ".")
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(44, 2));
-                        }
-                        else
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(44, 3));
-                        }
-                    }
-                }
-
-                if (e.Data.Substring(0, 45) == " Update state (0x11) preallocating, progress:")
-                {
-                    //PrintOnRichText(e.Data.Substring(42, 2));
-                    if (e.Data.Substring(47, 1) == ".")
-                    {
-                        updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(46, 1));
-                    }
-                    else
-                    {
-                        if (e.Data.Substring(48, 1) == ".")
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(46, 2));
-                        }
-                        else
-                        {
-                            updateProgressbar.Value = Convert.ToInt16(e.Data.Substring(46, 3));
-                        }
-                    }
-                }
-
-            }
-            catch { }
+        public void StartProcess()
+        {
+            InitProcess();
+            Console.Start(); //서버 시작
+            Console.BeginErrorReadLine(); //에러 메세지 가져오기 시작
+            Console.BeginOutputReadLine(); //서버 출력 메세지 가져오기 시작
+            ConsoleInput("chcp 65001");
         }
+
+        public void StopProcess()
+        {
+            Console.Close();
+            Console.Dispose();
+        }
+
+        private void ConsoleExit(object sender, EventArgs e)
+        {
+            Console.Close();
+            Console.Dispose();
+            OnConsoleExit?.Invoke(this, new EventArgs());
+        }
+
+        protected virtual void ConsoleOut(object sender, DataReceivedEventArgs e) => OnConsoleOutm(e.Data);
+
+        protected virtual void ConsoleErrorOut(object sender, DataReceivedEventArgs e) => OnConsoleErrorOutm(e.Data);
+
+        protected void OnConsoleOutm(string msg) => OnConsoleOut?.Invoke(msg);
+
+        protected void OnConsoleErrorOutm(string msg) => OnConsoleErrorOut?.Invoke(msg);
+
+        public void ConsoleInput(string CommandLine)
+        {
+            Console.StandardInput.WriteLine(CommandLine);
+        }
+    }
+
+    public class InstallProcess : ConsoleProcess
+    {
+        public delegate void NotifyOutput(InstallConsoleNotify consoleNotify,string msg);
+        public event NotifyOutput OnConsoleNotifyOut;
+
+        readonly string RustInstallDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString();
+        readonly int InstallProgress;
+
+        public InstallProcess() { }
+
+        public InstallProcess(string Directory)
+        {
+            WorkingDirectory = Directory;
+        }
+
+        protected override void ConsoleOut(object sender, DataReceivedEventArgs e)
+        {
+            OnConsoleOutm(e.Data);
+        }
+
+        public void RustServerUpdate()
+        {
+            OnConsoleNotifyOut?.Invoke(InstallConsoleNotify.ConsoleStart, null);
+
+            string UpdateCmdLine = @"cd steam
+steamcmd.exe +@ShutdownOnFailedCommand 1
+@NoPromptForPassword 1
+login anonymous
+force_install_dir
+" + RustInstallDir + 
+@"app_update 258550 validate
+quit
+cd ..
+exit";
+            ConsoleInput(UpdateCmdLine);
+        }
+    }
+
+    public class ServerProcess : ConsoleProcess
+    {
+        public ServerProcess() { }
+
+        public ServerProcess(string Directory)
+        {
+            WorkingDirectory = Directory;
+        }
+    }
+
+    public enum InstallConsoleNotify
+    {
+        ConsoleStart,
+        ConsoleStop,
+        Info,
+        Sucess,
+        Warn,
+        Error
     }
 }
