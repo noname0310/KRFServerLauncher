@@ -18,7 +18,7 @@ namespace RSShield_Model.ConsoleProcess
 
         private Process Console;
         protected string WorkingDirectory = "";
-        readonly string WorkingDefaultDir = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()).ToString();
+        readonly string WorkingDefaultDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString();
 
         public ConsoleProcess() { }
 
@@ -91,8 +91,7 @@ namespace RSShield_Model.ConsoleProcess
     {
         public delegate void NotifyOutput(InstallConsoleNotify consoleNotify,string msg);
         public event NotifyOutput OnConsoleNotifyOut;
-
-        readonly string RustInstallDir = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()).ToString()+ "\\rustds";
+        
         readonly string UpdateScriptDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()+ "\\CommandScripts\\update_script.txt";
         readonly int InstallProgress;
 
