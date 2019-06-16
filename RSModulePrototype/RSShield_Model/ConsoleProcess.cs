@@ -18,7 +18,8 @@ namespace RSShield_Model.ConsoleProcess
 
         private Process Console;
         protected string WorkingDirectory = "";
-        
+        readonly string WorkingDefaultDir = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()).ToString();
+
         public ConsoleProcess() { }
 
         public ConsoleProcess(string Directory)
@@ -34,7 +35,7 @@ namespace RSShield_Model.ConsoleProcess
             if (WorkingDirectory != "")
                 Console.StartInfo.WorkingDirectory = WorkingDirectory;
             else
-            Console.StartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                Console.StartInfo.WorkingDirectory = WorkingDefaultDir;
 
             Console.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden; //검은창 안뜨게
             Console.EnableRaisingEvents = true; //이벤트가 발생되도록
@@ -56,6 +57,7 @@ namespace RSShield_Model.ConsoleProcess
             Console.BeginErrorReadLine(); //에러 메세지 가져오기 시작
             Console.BeginOutputReadLine(); //서버 출력 메세지 가져오기 시작
             ConsoleInput("chcp 65001");
+            //ConsoleInput("chcp 949");
         }
 
         public void StopProcess()
@@ -90,7 +92,8 @@ namespace RSShield_Model.ConsoleProcess
         public delegate void NotifyOutput(InstallConsoleNotify consoleNotify,string msg);
         public event NotifyOutput OnConsoleNotifyOut;
 
-        readonly string RustInstallDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString();
+        readonly string RustInstallDir = Directory.GetParent(Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()).ToString()+ "\\rustds";
+        readonly string UpdateScriptDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString()+ "\\CommandScripts\\update_script.txt";
         readonly int InstallProgress;
 
         public InstallProcess() { }
@@ -108,17 +111,9 @@ namespace RSShield_Model.ConsoleProcess
         public void RustServerUpdate()
         {
             OnConsoleNotifyOut?.Invoke(InstallConsoleNotify.ConsoleStart, null);
-
             string UpdateCmdLine = @"cd steam
-steamcmd.exe +@ShutdownOnFailedCommand 1
-@NoPromptForPassword 1
-login anonymous
-force_install_dir
-" + RustInstallDir + 
-@"app_update 258550 validate
-quit
-cd ..
-exit";
+steamcmd.exe +runscript " + UpdateScriptDir + @"
+cd ..";
             ConsoleInput(UpdateCmdLine);
         }
     }

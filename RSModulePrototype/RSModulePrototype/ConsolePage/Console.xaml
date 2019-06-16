@@ -29,7 +29,7 @@
                             <RowDefinition Height="25"/>
                         </Grid.RowDefinitions>
 
-                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" local:AutoScrollBehavior.AutoScroll="True">
                             <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
                         </ScrollViewer>
                         <Grid Grid.Row="1">

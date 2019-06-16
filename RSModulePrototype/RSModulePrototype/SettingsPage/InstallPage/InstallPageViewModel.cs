@@ -11,6 +11,17 @@ namespace RSModulePrototype
 {
     public class InstallPageViewModel : INotifyPropertyChanged
     {
+        InstallProcess installProcess;
+
+        public InstallPageViewModel()
+        {
+            installProcess = new InstallProcess();
+            installProcess.OnConsoleNotifyOut += InstallProcess_OnConsoleNotifyOut;
+            installProcess.OnConsoleOut += InstallProcess_OnConsoleOut;
+            installProcess.OnConsoleErrorOut += InstallProcess_OnConsoleOut;
+            installProcess.StartProcess();
+        }
+
         #region ViewCTRLS
         private ICommand ServerInstall_Command;
         private StringBuilder InstallConsole;
@@ -51,12 +62,20 @@ namespace RSModulePrototype
 
         private void _InstallConsole_Append(string text)
         {
+            if (InstallConsole == null)
+            {
+                InstallConsole = new StringBuilder();
+            }
             InstallConsole.Append(text);
             OnPropertyUpdate("_InstallConsole");
         }
 
         private void _InstallConsole_AppendLine(string text)
         {
+            if (InstallConsole == null)
+            {
+                InstallConsole = new StringBuilder();
+            }
             InstallConsole.AppendLine(text);
             OnPropertyUpdate("_InstallConsole");
         }
@@ -71,10 +90,6 @@ namespace RSModulePrototype
 
         private void ServerInstall_Command_Excute()
         {
-            InstallProcess installProcess = new InstallProcess();
-            installProcess.OnConsoleNotifyOut += InstallProcess_OnConsoleNotifyOut;
-            installProcess.OnConsoleOut += InstallProcess_OnConsoleOut;
-            installProcess.StartProcess();
             installProcess.RustServerUpdate();
         }
 
