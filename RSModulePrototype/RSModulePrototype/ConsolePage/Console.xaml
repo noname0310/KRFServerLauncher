@@ -13,6 +13,9 @@
              FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
              
              d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.DataContext>
+        <local:ConsoleViewModel/>
+    </UserControl.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +33,7 @@
                         </Grid.RowDefinitions>
 
                         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled" local:AutoScrollBehavior.AutoScroll="True">
-                            <TextBlock FontSize="12" TextWrapping="Wrap" Text="Waiting..."/>
+                            <TextBlock FontSize="12" TextWrapping="Wrap" Text="{Binding _ServerConsole}"/>
                         </ScrollViewer>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
@@ -43,9 +46,13 @@
                                 <Grid Height="5"/>
                                 <TextBlock FontSize="12">></TextBlock>
                             </StackPanel>
-                            <TextBox Grid.Column="1" FontSize="12"></TextBox>
+                            <TextBox Grid.Column="1" FontSize="12" Text="{Binding _InputTextbox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding Path=_InputEnter_Command}" Key="Enter" />
+                                </TextBox.InputBindings>
+                            </TextBox>
 
-                            <Button Grid.Column="4" Content="Server Run" VerticalAlignment="Center" Background="#FFFFC737" Visibility="Visible"/>
+                            <Button Grid.Column="4" Content="Server Run" VerticalAlignment="Center" Background="#FFFFC737" Visibility="Visible" Command="{Binding SRunCommand}"/>
                             <Grid Grid.Column="4" Visibility="Hidden">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="110"/>

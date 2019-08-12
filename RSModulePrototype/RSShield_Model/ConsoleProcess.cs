@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace RSShield_Model.ConsoleProcess
 {
@@ -20,7 +21,10 @@ namespace RSShield_Model.ConsoleProcess
         protected string WorkingDirectory = "";
         readonly string WorkingDefaultDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).ToString();
 
-        public ConsoleProcess() { }
+        public ConsoleProcess()
+        {
+            WorkingDirectory = WorkingDefaultDir;
+        }
 
         public ConsoleProcess(string Directory)
         {
@@ -29,35 +33,87 @@ namespace RSShield_Model.ConsoleProcess
 
         private void InitProcess()
         {
-            Console = new Process(); //변수에 Process 값 대입
-            Console.StartInfo.FileName = "cmd.exe";
+            ProcessStartInfo StartInfo = new ProcessStartInfo
+            {
+                CreateNoWindow = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                FileName = "cmd.exe",
+                //FileName = "steam\\steamcmd.exe",
+                WorkingDirectory = WorkingDirectory,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                StandardErrorEncoding = Encoding.UTF8,
+                StandardOutputEncoding = Encoding.UTF8,
+                ErrorDialog = true,
+                //ErrorDialogParentHandle = Handle
+            };
 
-            if (WorkingDirectory != "")
-                Console.StartInfo.WorkingDirectory = WorkingDirectory;
-            else
-                Console.StartInfo.WorkingDirectory = WorkingDefaultDir;
-
-            Console.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden; //검은창 안뜨게
-            Console.EnableRaisingEvents = true; //이벤트가 발생되도록
-            Console.StartInfo.UseShellExecute = false;
-            Console.StartInfo.RedirectStandardInput = true; //명령어를 입력할수 있도록 할지
-            Console.StartInfo.CreateNoWindow = true; //창이 안뜨게
-            Console.StartInfo.RedirectStandardOutput = true; //서버 출력 메세지를 받아올지
-            Console.StartInfo.RedirectStandardError = true; //에러 출력 메세지를 받아올지
+            Console = new Process
+            {
+                StartInfo = StartInfo
+            }; //변수에 Process 값 대입
 
             Console.Exited += new EventHandler(ConsoleExit); //서버가 종료되었을때
-            Console.OutputDataReceived += new DataReceivedEventHandler(ConsoleOut); //서버에서 출력메세지가 생겼을때
-            Console.ErrorDataReceived += new DataReceivedEventHandler(ConsoleErrorOut); //서버에서 오류메세지가 생겼을때
+            //Console.OutputDataReceived += new DataReceivedEventHandler(ConsoleOut); //서버에서 출력메세지가 생겼을때
+            //Console.ErrorDataReceived += new DataReceivedEventHandler(ConsoleErrorOut); //서버에서 오류메세지가 생겼을때
         }
 
         public void StartProcess()
         {
             InitProcess();
             Console.Start(); //서버 시작
-            Console.BeginErrorReadLine(); //에러 메세지 가져오기 시작
-            Console.BeginOutputReadLine(); //서버 출력 메세지 가져오기 시작
-            ConsoleInput("chcp 65001");
-            //ConsoleInput("chcp 949");
+            //Console.BeginErrorReadLine(); //에러 메세지 가져오기 시작
+            //Console.BeginOutputReadLine(); //서버 출력 메세지 가져오기 시작
+            
+            Console.StandardInput.AutoFlush = true;
+
+            //ConsoleInput("chcp 65001");
+            Task StandardOutHandletask = new Task(new Action(StandardOutread));
+            Task StandardErrorHandletask = new Task(new Action(StandardErrorread));
+            StandardOutHandletask.Start();
+            StandardErrorHandletask.Start();
+        }
+
+        private void StandardOutread()
+        {
+            using (StreamReader StandardOutreader = Console.StandardOutput)
+            {
+                while (!Console.HasExited)
+                {
+                    if (!StandardOutreader.EndOfStream)
+                    {
+                        string procOutput = StandardOutreader.ReadLine();
+                        // trying to do the control update directly will result in an invalid cross-thread operation exception
+                        // instead, we invoke the control update on the window thread using this.Invoke(...)
+                        if (procOutput != null)
+                            ConsoleOut(procOutput);
+                    }
+                    else
+                        Thread.Sleep(20);                      // no input, so just wait for 20ms and check again
+                }
+            }
+        }
+
+        private void StandardErrorread()
+        {
+            using (StreamReader StandardErrorreader = Console.StandardError)
+            {
+                while (!Console.HasExited)
+                {
+                    if (!StandardErrorreader.EndOfStream)
+                    {
+                        string procOutput = StandardErrorreader.ReadLine();
+                        // trying to do the control update directly will result in an invalid cross-thread operation exception
+                        // instead, we invoke the control update on the window thread using this.Invoke(...)
+                        if (procOutput != null)
+                            ConsoleErrorOut(procOutput);
+                    }
+                    else
+                        Thread.Sleep(20);                      // no input, so just wait for 20ms and check again
+                }
+            }
         }
 
         public void StopProcess()
@@ -73,9 +129,9 @@ namespace RSShield_Model.ConsoleProcess
             OnConsoleExit?.Invoke(this, new EventArgs());
         }
 
-        protected virtual void ConsoleOut(object sender, DataReceivedEventArgs e) => OnConsoleOutm(e.Data);
+        protected virtual void ConsoleOut(string msg) => OnConsoleOutm(msg);
 
-        protected virtual void ConsoleErrorOut(object sender, DataReceivedEventArgs e) => OnConsoleErrorOutm(e.Data);
+        protected virtual void ConsoleErrorOut(string msg) => OnConsoleErrorOutm(msg);
 
         protected void OnConsoleOutm(string msg) => OnConsoleOut?.Invoke(msg);
 
@@ -83,7 +139,7 @@ namespace RSShield_Model.ConsoleProcess
 
         public void ConsoleInput(string CommandLine)
         {
-            Console.StandardInput.WriteLine(CommandLine);
+            Console.StandardInput.Write(CommandLine + Environment.NewLine);
         }
     }
 
@@ -102,9 +158,9 @@ namespace RSShield_Model.ConsoleProcess
             WorkingDirectory = Directory;
         }
 
-        protected override void ConsoleOut(object sender, DataReceivedEventArgs e)
+        protected override void ConsoleOut(string msg)
         {
-            OnConsoleOutm(e.Data);
+            OnConsoleOutm(msg);
         }
 
         public void RustServerUpdate()
@@ -124,6 +180,13 @@ cd ..";
         public ServerProcess(string Directory)
         {
             WorkingDirectory = Directory;
+        }
+
+        public void RunServer()
+        {
+            //OnConsoleNotifyOut?.Invoke(InstallConsoleNotify.ConsoleStart, null);
+            string UpdateCmdLine = @"Run.bat";
+            ConsoleInput(UpdateCmdLine);
         }
     }
 
